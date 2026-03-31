@@ -1,5 +1,7 @@
 package test.examples;
 
+import com.codeborne.selenide.Configuration;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
@@ -9,9 +11,16 @@ import static com.codeborne.selenide.Condition.cssClass;
 
 public class TestdempQa {
 
-    @Test
+    @BeforeAll
+    static void beforeALL(){
+        Configuration.browserSize = "1920x1080";
+        Configuration.browser = "chrome";
+        Configuration.baseUrl = "https://demoqa.com";
+    }
+
+    @Test //Тест на простую форму успешный полный
     void successTest()  {
-        open("https://demoqa.com/text-box");
+        open("/text-box");
         $("#userName").setValue("Sidorov Dmitry");
         $("#userEmail").setValue("Dog123444@gail.ru");
         $("#currentAddress").setValue("Dagestan");
@@ -24,17 +33,17 @@ public class TestdempQa {
         $("#output #permanentAddress").shouldHave(text("Dagestan, street Grom"));
     }
 
-    @Test
+    @Test //Тест на простую форму успешный с минимумом полей
     void minimalTest(){
-        open("https://demoqa.com/text-box");
+        open("/text-box");
         $("#userName").setValue("test");
         $("#submit").click();
         $("#output #name").shouldHave(text("test"));
     }
 
-    @Test
+    @Test //Тест на простую форму негативный
     void negativeTest(){
-        open("https://demoqa.com/text-box");
+        open("/text-box");
         $("#userEmail").setValue("testgmail.com");
         $("#submit").click();
         $("#userEmail").shouldHave(cssClass("field-error"));
