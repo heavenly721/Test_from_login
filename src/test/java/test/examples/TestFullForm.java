@@ -14,11 +14,13 @@ public class TestFullForm {
     @BeforeAll
     static void beforeALL(){
         Configuration.browserSize = "1920x1080";
+        Configuration.browser = "chrome";
+        Configuration.baseUrl = "https://qa-guru.github.io";
     }
 
     @Test //Тест на успешное заполнение формы все поля заполнены
     void successFullAll() {
-        open("https://qa-guru.github.io/one-page-form/automation-practice-form.html");
+        open("/one-page-form/automation-practice-form.html");
         $("[aria-label='Close']").click();
         $("[id=firstName]").val("Mikhail");
         $("[id=lastName]").val("Mar");
@@ -30,7 +32,7 @@ public class TestFullForm {
         $("[class=react-datepicker__year-select]").selectOption("1999");
         $("[class*='react-datepicker__day'][data-day='11']").click();
         $("[id=subjectsInput]").setValue("Physics").pressEnter();
-        $("[id=hobbies-checkbox-2]").click();
+        $("#hobbiesWrapper").$(byText("Reading")).click();
         $("[id=uploadPicture]").uploadFromClasspath("test1.txt");
         $("[id=currentAddress]").setValue("Vladivostok");
         $("[id=state]").scrollTo().click();
@@ -40,22 +42,22 @@ public class TestFullForm {
         $("[id=submit]").click();
 
         //Проверка заполнения
-        $("#resultBody tr:nth-child(1) td:nth-child(2)").shouldHave(text("Mikhail"));
-        $("#resultBody tr:nth-child(1) td:nth-child(2)").shouldHave(text("Mar"));
-        $("#resultBody tr:nth-child(2) td:nth-child(2)").shouldHave(text("heaven21@gmail.com"));
-        $("#resultBody tr:nth-child(3) td:nth-child(2)").shouldHave(text("Male"));
-        $("#resultBody tr:nth-child(4) td:nth-child(2)").shouldHave(text("9154322223"));
-        $("#resultBody tr:nth-child(5) td:nth-child(2)").shouldHave(text("1999-11-11"));
-        $("#resultBody tr:nth-child(6) td:nth-child(2)").shouldHave(text("Physics"));
-        $("#resultBody tr:nth-child(7) td:nth-child(2)").shouldHave(text("Reading"));
-        $("#resultBody tr:nth-child(8) td:nth-child(2)").shouldHave(text("test1.txt"));
-        $("#resultBody tr:nth-child(9) td:nth-child(2)").shouldHave(text("Vladivostok"));
-        $("#resultBody tr:nth-child(10) td:nth-child(2)").shouldHave(text("Uttar Pradesh Lucknow"));
+        $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text("Mikhail Mar"));
+        $(".table-responsive").$(byText("Student Email")).parent().shouldHave(text("heaven21@gmail.com"));
+        $(".table-responsive").$(byText("Gender")).parent().shouldHave(text("Male"));
+        $(".table-responsive").$(byText("Mobile")).parent().shouldHave(text("9154322223"));
+        $(".table-responsive").$(byText("Date of Birth")).parent().shouldHave(text("1999-11-11"));
+        $(".table-responsive").$(byText("Subjects")).parent().shouldHave(text("Physics"));
+        $(".table-responsive").$(byText("Hobbies")).parent().shouldHave(text("Reading"));
+        $(".table-responsive").$(byText("Picture")).parent().shouldHave(text("test1.txt"));
+        $(".table-responsive").$(byText("Address")).parent().shouldHave(text("Vladivostok"));
+        $(".table-responsive").$(byText("State and City")).parent().shouldHave(text("Uttar Pradesh Lucknow"));
+
     }
 
     @Test //Тест на успешное заполнение формы только с обязательными полями
     void successFull() {
-        open("https://qa-guru.github.io/one-page-form/automation-practice-form.html");
+        open("/one-page-form/automation-practice-form.html");
         $("[aria-label='Close']").click();
         $("[id=firstName]").val("Mikhail");
         $("[id=lastName]").val("Mar");
@@ -64,16 +66,15 @@ public class TestFullForm {
         $("[id=userNumber]").val("9154322223");
         $("[id=submit]").scrollTo().click();
 
-        $("#resultBody tr:nth-child(1) td:nth-child(2)").shouldHave(text("Mikhail"));
-        $("#resultBody tr:nth-child(1) td:nth-child(2)").shouldHave(text("Mar"));
-        $("#resultBody tr:nth-child(2) td:nth-child(2)").shouldHave(text("heaven21@gmail.com"));
-        $("#resultBody tr:nth-child(3) td:nth-child(2)").shouldHave(text("Male"));
-        $("#resultBody tr:nth-child(4) td:nth-child(2)").shouldHave(text("9154322223"));
+        $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text("Mikhail Mar"));
+        $(".table-responsive").$(byText("Student Email")).parent().shouldHave(text("heaven21@gmail.com"));
+        $(".table-responsive").$(byText("Gender")).parent().shouldHave(text("Male"));
+        $(".table-responsive").$(byText("Mobile")).parent().shouldHave(text("9154322223"));
     }
 
     @Test //Пустые обязательные поля
     void requiredFieldsEmpty() {
-        open("https://qa-guru.github.io/one-page-form/automation-practice-form.html");
+        open("/one-page-form/automation-practice-form.html");
         $("[aria-label='Close']").click();
         $("#submit").scrollTo().click();
 
@@ -83,7 +84,7 @@ public class TestFullForm {
 
     @Test //Некорректный номер телефона (9 цифр)
     void invalidMobileNumber() {
-        open("https://qa-guru.github.io/one-page-form/automation-practice-form.html");
+        open("/one-page-form/automation-practice-form.html");
         $("[aria-label='Close']").click();
         $("#firstName").val("Mikhail");
         $("#lastName").val("Mar");
@@ -97,7 +98,7 @@ public class TestFullForm {
 
     @Test //Не выбран пол (gender)
     void genderNotSelected() {
-        open("https://qa-guru.github.io/one-page-form/automation-practice-form.html");
+        open("/one-page-form/automation-practice-form.html");
         $("[aria-label='Close']").click();
         $("#firstName").val("Mikhail");
         $("#lastName").val("Mar");
@@ -119,5 +120,4 @@ public class TestFullForm {
         $("#resultModal").shouldNotBe(visible);
         $("#formError").shouldHave(text("Please fill required fields and enter a valid 10-digit mobile number."));
     }
-
 }
