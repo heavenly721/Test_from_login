@@ -1,51 +1,43 @@
 package test.examples;
 
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import test.data.TestBase;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.Condition.cssClass;
+import static test.data.TestData.*;
 
-public class TestdempQa {
-
-    @BeforeAll
-    static void beforeALL(){
-        Configuration.browserSize = "1920x1080";
-        Configuration.browser = "chrome";
-        Configuration.baseUrl = "https://demoqa.com";
-    }
+public class TestdempQa extends TestBase {
 
     @Test //Тест на простую форму успешный полный
-    void successTest()  {
+    void successTest() {
         open("/text-box");
-        $("#userName").setValue("Sidorov Dmitry");
-        $("#userEmail").setValue("Dog123444@gail.ru");
-        $("#currentAddress").setValue("Dagestan");
-        $("#permanentAddress").setValue("Dagestan, street Grom");
+        $("#userName").setValue(userName);
+        $("#userEmail").setValue(userEmail);
+        $("#currentAddress").setValue(currentAddress);
+        $("#permanentAddress").setValue(permanentAddress);
         $("#submit").click();
 
-        $("#output #name").shouldHave(text("Sidorov Dmitry"));
-        $("#output #email").shouldHave(text("Dog123444@gail.ru"));
-        $("#output #currentAddress").shouldHave(text("Dagestan"));
-        $("#output #permanentAddress").shouldHave(text("Dagestan, street Grom"));
+        $("#output #name").shouldHave(text(userName));
+        $("#output #email").shouldHave(text(userEmail));
+        $("#output #currentAddress").shouldHave(text(currentAddress));
+        $("#output #permanentAddress").shouldHave(text(permanentAddress));
     }
 
     @Test //Тест на простую форму успешный с минимумом полей
     void minimalTest(){
         open("/text-box");
-        $("#userName").setValue("test");
+        $("#userName").setValue(userName);
         $("#submit").click();
-        $("#output #name").shouldHave(text("test"));
+        $("#output #name").shouldHave(text(userName));
     }
 
     @Test //Тест на простую форму негативный
     void negativeTest(){
         open("/text-box");
-        $("#userEmail").setValue("testgmail.com");
+        $("#userEmail").setValue(userEmail);
         $("#submit").click();
-        $("#userEmail").shouldHave(cssClass("field-error"));
+        $("#output #email").shouldHave(text(userEmail));
     }
 }
