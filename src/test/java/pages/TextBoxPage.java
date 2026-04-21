@@ -1,0 +1,70 @@
+package pages;
+
+import com.codeborne.selenide.SelenideElement;
+
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selectors.byId;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
+import static test.data.TestData.userName;
+
+public class TextBoxPage {
+
+    // Elements
+    private SelenideElement userNameInput = $("#userName");
+    private SelenideElement userEmailInput = $("#userEmail");
+    private SelenideElement userCurrentAddress = $("#currentAddress");
+    private SelenideElement userPermanentAddress = $("#permanentAddress");
+    private SelenideElement submitButton = $("#submit");
+    private SelenideElement outputResults = $("#output");
+
+    // Actions
+    public TextBoxPage openPage() {
+        open("/text-box");
+
+        return this;
+    }
+
+    public TextBoxPage typeUserName(String value) {
+        userNameInput.setValue(value);
+
+        return this;
+    }
+
+    public TextBoxPage typeUserEmail(String value) {
+        userEmailInput.setValue(value);
+
+        return this;
+    }
+
+    public TextBoxPage typeCurrentAddress(String value) {
+        userCurrentAddress.setValue(value);
+
+        return this;
+    }
+
+    public TextBoxPage typePermanentAddress(String value) {
+        userPermanentAddress.setValue(value);
+
+        return this;
+    }
+
+    public TextBoxPage submitForm() {
+        submitButton.click();
+
+        return this;
+    }
+
+    public TextBoxPage checkField(String key, String value) {
+        outputResults.$(byId(key)).shouldHave(text(value));
+
+        return this;
+    }
+
+    public TextBoxPage checkOutputField(String key, String value) {
+        outputResults.$(byId(key)).shouldHave(text(value));
+
+        return this;
+    }
+
+}

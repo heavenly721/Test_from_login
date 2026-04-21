@@ -1,6 +1,7 @@
 package test.examples;
 
 import org.junit.jupiter.api.Test;
+import pages.TextBoxPage;
 import test.data.TestBase;
 
 import static com.codeborne.selenide.Condition.text;
@@ -9,35 +10,44 @@ import static com.codeborne.selenide.Selenide.open;
 import static test.data.TestData.*;
 
 public class TestdempQa extends TestBase {
+    TextBoxPage textBoxPage = new TextBoxPage();
 
     @Test //Тест на простую форму успешный полный
     void successTest() {
-        open("/text-box");
-        $("#userName").setValue(userName);
-        $("#userEmail").setValue(userEmail);
-        $("#currentAddress").setValue(currentAddress);
-        $("#permanentAddress").setValue(permanentAddress);
-        $("#submit").click();
+        textBoxPage.openPage();
+        textBoxPage.typeUserName(userName);
+        textBoxPage.typeUserEmail(userEmail);
+        textBoxPage.typeCurrentAddress(currentAddress);
+        textBoxPage.typePermanentAddress(permanentAddress);
+        textBoxPage.submitForm();
 
-        $("#output #name").shouldHave(text(userName));
-        $("#output #email").shouldHave(text(userEmail));
-        $("#output #currentAddress").shouldHave(text(currentAddress));
-        $("#output #permanentAddress").shouldHave(text(permanentAddress));
+        textBoxPage.checkField("name", userName);
+        textBoxPage.checkField("email", userEmail);
+        textBoxPage.checkOutputField("currentAddress", currentAddress);
+        textBoxPage.checkOutputField("permanentAddress", permanentAddress);
     }
 
     @Test //Тест на простую форму успешный с минимумом полей
     void minimalTest(){
-        open("/text-box");
-        $("#userName").setValue(userName);
-        $("#submit").click();
-        $("#output #name").shouldHave(text(userName));
+        textBoxPage.openPage();
+        textBoxPage.typeUserName(userName);
+        textBoxPage.submitForm();
+        textBoxPage.checkField("name", userName);
     }
 
     @Test //Тест на простую форму негативный
     void negativeTest(){
-        open("/text-box");
-        $("#userEmail").setValue(userEmail);
-        $("#submit").click();
-        $("#output #email").shouldHave(text(userEmail));
+        textBoxPage.openPage();
+        textBoxPage.typeUserEmail(userEmail);
+        textBoxPage.submitForm();
+        textBoxPage.checkField("email", userEmail);
+    }
+
+    @Test
+    void minimalTest_chaining(){
+        textBoxPage.openPage()
+        .typeUserName(userName)
+        .submitForm()
+        .checkField("name", userName);
     }
 }
