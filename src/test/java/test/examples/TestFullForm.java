@@ -1,120 +1,111 @@
 package test.examples;
 
 import org.junit.jupiter.api.Test;
+import pages.FullAllPage;
 import test.data.TestBaseFull;
 
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
 import static test.data.TestData.*;
 
 public class TestFullForm extends TestBaseFull {
+    FullAllPage fullAllPage = new FullAllPage();
 
     //Тест на успешное заполнение формы все поля заполнен
     @Test
     void successFullAll() {
-        open("/one-page-form/automation-practice-form.html");
-        $("[aria-label='Close']").click();
-        $("#firstName").val(firstName);
-        $("#lastName").val(lastName);
-        $("#userEmail").val(userEmailForFull);
-        $("#gender-radio-1").click();
-        $("#userNumber").val(userNumber);
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOption(monthOfBirth);
-        $(".react-datepicker__year-select").selectOption(yearOfBirth);
-        $(".react-datepicker__day[data-day='" + dayOfBirth + "']").click();
-        $("#subjectsInput").setValue(subject).pressEnter();
-        $("#hobbiesWrapper").$(byText(hobbiesWrapper)).click();
-        $("#uploadPicture").uploadFromClasspath(Picture);
-        $("#currentAddress").setValue(currentAddressForFull);
-        $("#state").scrollTo().click();
-        $(byText(State)).click();
-        $("#city").click();
-        $(byText(city)).click();
-        $("#submit").click();
+        fullAllPage.openPage()
+                .typeFirstName(firstName)
+                .typeLastName(lastName)
+                .closeBanner()
+                .typeUserEmail(userEmailForFull)
+                .selectGender(gender)
+                .typeUserNumber(userNumber)
+                .setDateOfBirth(dayOfBirth, monthOfBirth, yearOfBirth)
+                .typeSubject(subject)
+                .selectHobby(hobbiesWrapper)
+                .uploadPicture(Picture)
+                .typeCurrentAddress(currentAddressForFull)
+                .selectState(State)
+                .selectCity(city)
+                .submitForm();
 
-        //Проверка заполнения
-        $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text(firstName + " " + lastName));
-        $(".table-responsive").$(byText("Student Email")).parent().shouldHave(text(userEmailForFull));
-        $(".table-responsive").$(byText("Gender")).parent().shouldHave(text(gender));
-        $(".table-responsive").$(byText("Mobile")).parent().shouldHave(text(userNumber));
-        $(".table-responsive").$(byText("Date of Birth")).parent().shouldHave(text(dateOfBirth));
-        $(".table-responsive").$(byText("Subjects")).parent().shouldHave(text(subject));
-        $(".table-responsive").$(byText("Hobbies")).parent().shouldHave(text(hobbiesWrapper));
-        $(".table-responsive").$(byText("Picture")).parent().shouldHave(text(Picture));
-        $(".table-responsive").$(byText("Address")).parent().shouldHave(text(currentAddressForFull));
-        $(".table-responsive").$(byText("State and City")).parent().shouldHave(text(State + " " + city));
+        // Проверки
+        fullAllPage.checkStudentName(firstName, lastName)
+                .checkStudentEmail(userEmailForFull)
+                .checkGender(gender)
+                .checkMobile(userNumber)
+                .checkDateOfBirth(dateOfBirth)
+                .checkSubjects(subject)
+                .checkHobbies(hobbiesWrapper)
+                .checkPicture(Picture)
+                .checkAddress(currentAddressForFull)
+                .checkStateAndCity(State, city);
     }
 
-    //Тест на успешное заполнение формы только с обязательными полями
+    // Тест на успешное заполнение только обязательных полей
     @Test
     void successFull() {
-        open("/one-page-form/automation-practice-form.html");
-        $("[aria-label='Close']").click();
-        $("#firstName").val(firstName);
-        $("#lastName").val(lastName);
-        $("#userEmail").val(userEmailForFull);
-        $("#gender-radio-1").click();
-        $("#userNumber").val(userNumber);
-        $("#submit").scrollTo().click();
+        fullAllPage.openPage()
+                .closeBanner()
+                .typeFirstName(firstName)
+                .typeLastName(lastName)
+                .typeUserEmail(userEmailForFull)
+                .selectGender(gender)
+                .typeUserNumber(userNumber)
+                .scrollToSubmit()
+                .submitForm();
 
-        $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text(firstName + " " + lastName));
-        $(".table-responsive").$(byText("Student Email")).parent().shouldHave(text(userEmailForFull));
-        $(".table-responsive").$(byText("Gender")).parent().shouldHave(text(gender));
-        $(".table-responsive").$(byText("Mobile")).parent().shouldHave(text(userNumber));
+        fullAllPage.checkStudentName(firstName, lastName)
+                .checkStudentEmail(userEmailForFull)
+                .checkGender(gender)
+                .checkMobile(userNumber);
     }
 
-    //Пустые обязательные поля
+    // Пустые обязательные поля
     @Test
     void requiredFieldsEmpty() {
-        open("/one-page-form/automation-practice-form.html");
-        $("[aria-label='Close']").click();
-        $("#submit").scrollTo().click();
+        fullAllPage.openPage()
+                .closeBanner()
+                .scrollToSubmit()
+                .submitForm();
 
-        $("#resultModal").shouldNotBe(visible);
-        $("#formError").shouldHave(text("Please fill required fields and enter a valid 10-digit mobile number."));
+        fullAllPage.checkResultModalNotVisible()
+                .checkFormError(message);
     }
 
-    //Некорректный номер телефона (9 цифр)
+    // Некорректный номер телефона (9 цифр)
     @Test
     void invalidMobileNumber() {
-        open("/one-page-form/automation-practice-form.html");
-        $("[aria-label='Close']").click();
-        $("#firstName").val(firstName);
-        $("#lastName").val(lastName);
-        $("#gender-radio-1").click();
-        $("#userNumber").val(invalidUserNumber); // Нужно добавить переменную для некорректного номера
-        $("#submit").scrollTo().click();
+        fullAllPage.openPage()
+                .closeBanner()
+                .typeFirstName(firstName)
+                .typeLastName(lastName)
+                .selectGender(gender)
+                .typeUserNumber(invalidUserNumber)
+                .scrollToSubmit()
+                .submitForm();
 
-        $("#resultModal").shouldNotBe(visible);
-        $("#formError").shouldHave(text("Please fill required fields and enter a valid 10-digit mobile number."));
+        fullAllPage.checkResultModalNotVisible()
+                .checkFormError(message);
     }
 
-    //Не выбран пол (gender)
+    // Не выбран пол (gender)
     @Test
     void genderNotSelected() {
-        open("/one-page-form/automation-practice-form.html");
-        $("[aria-label='Close']").click();
-        $("#firstName").val(firstName);
-        $("#lastName").val(lastName);
-        $("#userEmail").val(userEmailForFull);
-        $("#userNumber").val(userNumber);
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOption(monthOfBirth);
-        $(".react-datepicker__year-select").selectOption(yearOfBirth);
-        $(".react-datepicker__day[data-day='" + dayOfBirth + "']").click();
-        $("#subjectsInput").setValue(subject).pressEnter();
-        $("#hobbies-checkbox-2").click();
-        $("#currentAddress").val(currentAddressForFull);
-        $("#state").scrollTo().click();
-        $(byText(State)).click();
-        $("#city").click();
-        $(byText(city)).click();
-        $("#submit").click();
+        fullAllPage.openPage()
+                .closeBanner()
+                .typeFirstName(firstName)
+                .typeLastName(lastName)
+                .typeUserEmail(userEmailForFull)
+                .typeUserNumber(userNumber)
+                .setDateOfBirth(dayOfBirth, monthOfBirth, yearOfBirth)
+                .typeSubject(subject)
+                .selectHobby(hobbiesWrapper)
+                .typeCurrentAddress(currentAddressForFull)
+                .selectState(State)
+                .selectCity(city)
+                .submitForm();
 
-        $("#resultModal").shouldNotBe(visible);
-        $("#formError").shouldHave(text(message));
+        fullAllPage.checkResultModalNotVisible()
+                .checkFormError(message);
     }
 }

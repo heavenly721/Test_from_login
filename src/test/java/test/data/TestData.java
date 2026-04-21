@@ -25,5 +25,4 @@ public class TestData {
     public static String dateOfBirth = "1999-11-11";
     public static String invalidUserNumber = "123456789";
     public static String message = "Please fill required fields and enter a valid 10-digit mobile number.";
-
 }
