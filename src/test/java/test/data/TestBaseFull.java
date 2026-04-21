@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeAll;
 public class TestBaseFull {
 
     @BeforeAll
-    static void beforeAll() {
+    static void setupSelenideQaGury() {
         Configuration.browserSize = "1920x1080";
         Configuration.browser = "chrome";
         Configuration.baseUrl = "https://qa-guru.github.io";

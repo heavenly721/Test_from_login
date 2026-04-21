@@ -16,24 +16,24 @@ public class TestFullForm extends TestBaseFull {
     void successFullAll() {
         open("/one-page-form/automation-practice-form.html");
         $("[aria-label='Close']").click();
-        $("[id=firstName]").val(firstName);
-        $("[id=lastName]").val(lastName);
-        $("[id=userEmail]").val(userEmailForFull);
-        $("[id=gender-radio-1]").click();
-        $("[id=userNumber]").val(userNumber);
-        $("[id=dateOfBirthInput]").click();
-        $("[class=react-datepicker__month-select]").selectOption(monthOfBirth);
-        $("[class=react-datepicker__year-select]").selectOption(yearOfBirth);
-        $("[class*='react-datepicker__day'][data-day='" + dayOfBirth + "']").click();
-        $("[id=subjectsInput]").setValue(subject).pressEnter();
+        $("#firstName").val(firstName);
+        $("#lastName").val(lastName);
+        $("#userEmail").val(userEmailForFull);
+        $("#gender-radio-1").click();
+        $("#userNumber").val(userNumber);
+        $("#dateOfBirthInput").click();
+        $(".react-datepicker__month-select").selectOption(monthOfBirth);
+        $(".react-datepicker__year-select").selectOption(yearOfBirth);
+        $(".react-datepicker__day[data-day='" + dayOfBirth + "']").click();
+        $("#subjectsInput").setValue(subject).pressEnter();
         $("#hobbiesWrapper").$(byText(hobbiesWrapper)).click();
-        $("[id=uploadPicture]").uploadFromClasspath(Picture);
-        $("[id=currentAddress]").setValue(currentAddressForFull);
-        $("[id=state]").scrollTo().click();
+        $("#uploadPicture").uploadFromClasspath(Picture);
+        $("#currentAddress").setValue(currentAddressForFull);
+        $("#state").scrollTo().click();
         $(byText(State)).click();
-        $("[id=city]").click();
+        $("#city").click();
         $(byText(city)).click();
-        $("[id=submit]").click();
+        $("#submit").click();
 
         //Проверка заполнения
         $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text(firstName + " " + lastName));
@@ -53,12 +53,12 @@ public class TestFullForm extends TestBaseFull {
     void successFull() {
         open("/one-page-form/automation-practice-form.html");
         $("[aria-label='Close']").click();
-        $("[id=firstName]").val(firstName);
-        $("[id=lastName]").val(lastName);
-        $("[id=userEmail]").val(userEmailForFull);
-        $("[id=gender-radio-1]").click();
-        $("[id=userNumber]").val(userNumber);
-        $("[id=submit]").scrollTo().click();
+        $("#firstName").val(firstName);
+        $("#lastName").val(lastName);
+        $("#userEmail").val(userEmailForFull);
+        $("#gender-radio-1").click();
+        $("#userNumber").val(userNumber);
+        $("#submit").scrollTo().click();
 
         $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text(firstName + " " + lastName));
         $(".table-responsive").$(byText("Student Email")).parent().shouldHave(text(userEmailForFull));
