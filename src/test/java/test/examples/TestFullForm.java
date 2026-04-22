@@ -1,44 +1,50 @@
 package test.examples;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pages.FullAllPage;
 import test.data.TestBaseFull;
-
-import static test.data.TestData.*;
+import test.data.TestData;
 
 public class TestFullForm extends TestBaseFull {
     FullAllPage fullAllPage = new FullAllPage();
+    TestData testData;
 
-    //Тест на успешное заполнение формы все поля заполнен
+    @BeforeEach
+    void setUp() {
+        testData = new TestData();
+    }
+
+    //Тест на успешное заполнение формы все поля заполнены
     @Test
     void successFullAll() {
         fullAllPage.openPage()
-                .typeFirstName(firstName)
-                .typeLastName(lastName)
+                .typeFirstName(testData.firstName)
+                .typeLastName(testData.lastName)
                 .closeBanner()
-                .typeUserEmail(userEmailForFull)
-                .selectGender(gender)
-                .typeUserNumber(userNumber)
-                .setDateOfBirth(dayOfBirth, monthOfBirth, yearOfBirth)
-                .typeSubject(subject)
-                .selectHobby(hobbiesWrapper)
-                .uploadPicture(Picture)
-                .typeCurrentAddress(currentAddressForFull)
-                .selectState(State)
-                .selectCity(city)
+                .typeUserEmail(testData.userEmailForFull)
+                .selectGender(testData.gender)
+                .typeUserNumber(testData.userNumber)
+                .setDateOfBirth(testData.dayOfBirth, testData.monthOfBirth, testData.yearOfBirth)
+                .typeSubject(testData.subject)
+                .selectHobby(testData.hobbiesWrapper)
+                .uploadPicture(testData.Picture)
+                .typeCurrentAddress(testData.currentAddressForFull)
+                .selectState(testData.State)
+                .selectCity(testData.city)
                 .submitForm();
 
         // Проверки
-        fullAllPage.checkStudentName(firstName, lastName)
-                .checkStudentEmail(userEmailForFull)
-                .checkGender(gender)
-                .checkMobile(userNumber)
-                .checkDateOfBirth(dateOfBirth)
-                .checkSubjects(subject)
-                .checkHobbies(hobbiesWrapper)
-                .checkPicture(Picture)
-                .checkAddress(currentAddressForFull)
-                .checkStateAndCity(State, city);
+        fullAllPage.checkStudentName(testData.firstName, testData.lastName)
+                .checkStudentEmail(testData.userEmailForFull)
+                .checkGender(testData.gender)
+                .checkMobile(testData.userNumber)
+                .checkDateOfBirth(testData.dateOfBirth)
+                .checkSubjects(testData.subject)
+                .checkHobbies(testData.hobbiesWrapper)
+                .checkPicture(testData.Picture)
+                .checkAddress(testData.currentAddressForFull)
+                .checkStateAndCity(testData.State, testData.city);
     }
 
     // Тест на успешное заполнение только обязательных полей
@@ -46,18 +52,18 @@ public class TestFullForm extends TestBaseFull {
     void successFull() {
         fullAllPage.openPage()
                 .closeBanner()
-                .typeFirstName(firstName)
-                .typeLastName(lastName)
-                .typeUserEmail(userEmailForFull)
-                .selectGender(gender)
-                .typeUserNumber(userNumber)
+                .typeFirstName(testData.firstName)
+                .typeLastName(testData.lastName)
+                .typeUserEmail(testData.userEmailForFull)
+                .selectGender(testData.gender)
+                .typeUserNumber(testData.userNumber)
                 .scrollToSubmit()
                 .submitForm();
 
-        fullAllPage.checkStudentName(firstName, lastName)
-                .checkStudentEmail(userEmailForFull)
-                .checkGender(gender)
-                .checkMobile(userNumber);
+        fullAllPage.checkStudentName(testData.firstName, testData.lastName)
+                .checkStudentEmail(testData.userEmailForFull)
+                .checkGender(testData.gender)
+                .checkMobile(testData.userNumber);
     }
 
     // Пустые обязательные поля
@@ -69,7 +75,7 @@ public class TestFullForm extends TestBaseFull {
                 .submitForm();
 
         fullAllPage.checkResultModalNotVisible()
-                .checkFormError(message);
+                .checkFormError(testData.message);
     }
 
     // Некорректный номер телефона (9 цифр)
@@ -77,15 +83,15 @@ public class TestFullForm extends TestBaseFull {
     void invalidMobileNumber() {
         fullAllPage.openPage()
                 .closeBanner()
-                .typeFirstName(firstName)
-                .typeLastName(lastName)
-                .selectGender(gender)
-                .typeUserNumber(invalidUserNumber)
+                .typeFirstName(testData.firstName)
+                .typeLastName(testData.lastName)
+                .selectGender(testData.gender)
+                .typeUserNumber(testData.invalidUserNumber)
                 .scrollToSubmit()
                 .submitForm();
 
         fullAllPage.checkResultModalNotVisible()
-                .checkFormError(message);
+                .checkFormError(testData.message);
     }
 
     // Не выбран пол (gender)
@@ -93,21 +99,19 @@ public class TestFullForm extends TestBaseFull {
     void genderNotSelected() {
         fullAllPage.openPage()
                 .closeBanner()
-                .typeFirstName(firstName)
-                .typeLastName(lastName)
-                .typeUserEmail(userEmailForFull)
-                .typeUserNumber(userNumber)
-                .setDateOfBirth(dayOfBirth, monthOfBirth, yearOfBirth)
-                .typeSubject(subject)
-                .selectHobby(hobbiesWrapper)
-                .typeCurrentAddress(currentAddressForFull)
-                .selectState(State)
-                .selectCity(city)
+                .typeFirstName(testData.firstName)
+                .typeLastName(testData.lastName)
+                .typeUserEmail(testData.userEmailForFull)
+                .typeUserNumber(testData.userNumber)
+                .setDateOfBirth(testData.dayOfBirth, testData.monthOfBirth, testData.yearOfBirth)
+                .typeSubject(testData.subject)
+                .selectHobby(testData.hobbiesWrapper)
+                .typeCurrentAddress(testData.currentAddressForFull)
+                .selectState(testData.State)
+                .selectCity(testData.city)
                 .submitForm();
 
         fullAllPage.checkResultModalNotVisible()
-                .checkFormError(message);
+                .checkFormError(testData.message);
     }
-
-
 }
