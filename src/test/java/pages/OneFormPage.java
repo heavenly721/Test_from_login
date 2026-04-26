@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class FullAllPage {
+public class OneFormPage {
 
     // Components
     private CalendarComponent calendar = new CalendarComponent();
@@ -36,145 +36,145 @@ public class FullAllPage {
     }
 
     // Actions
-    public FullAllPage openPage() {
+    public OneFormPage openPage() {
         open("/one-page-form/automation-practice-form.html");
         return this;
     }
 
-    public FullAllPage closeBanner() {
+    public OneFormPage closeBanner() {
         closeButton.click();
         return this;
     }
 
-    public FullAllPage typeFirstName(String value) {
+    public OneFormPage typeFirstName(String value) {
         firstNameInput.setValue(value);
         return this;
     }
 
-    public FullAllPage typeLastName(String value) {
+    public OneFormPage typeLastName(String value) {
         lastNameInput.setValue(value);
         return this;
     }
 
-    public FullAllPage typeUserEmail(String value) {
+    public OneFormPage typeUserEmail(String value) {
         userEmailInput.setValue(value);
         return this;
     }
 
-    public FullAllPage selectGender(String gender) {
+    public OneFormPage selectGender(String gender) {
         getGenderRadio(gender).click();
         return this;
     }
 
-    public FullAllPage typeUserNumber(String value) {
+    public OneFormPage typeUserNumber(String value) {
         userNumberInput.setValue(value);
         return this;
     }
 
-    public FullAllPage setDateOfBirth(String day, String month, String year) {
+    public OneFormPage setDateOfBirth(String day, String month, String year) {
         calendar.setDate(day, month, year);
         return this;
     }
 
-    public FullAllPage typeSubject(String subject) {
+    public OneFormPage typeSubject(String subject) {
         subjectsInput.setValue(subject).pressEnter();
         return this;
     }
 
-    public FullAllPage selectHobby(String hobby) {
+    public OneFormPage selectHobby(String hobby) {
         hobbiesWrapper.$(byText(hobby)).click();  // Используем поле класса
         return this;
     }
 
-    public FullAllPage uploadPicture(String picturePath) {
+    public OneFormPage uploadPicture(String picturePath) {
         uploadPicture.uploadFromClasspath(picturePath);
         return this;
     }
 
-    public FullAllPage typeCurrentAddress(String value) {
+    public OneFormPage typeCurrentAddress(String value) {
         currentAddressInput.setValue(value);
         return this;
     }
 
-    public FullAllPage selectState(String state) {
+    public OneFormPage selectState(String state) {
         stateInput.scrollTo().click();
         $(byText(state)).click();
         return this;
     }
 
-    public FullAllPage selectCity(String city) {
+    public OneFormPage selectCity(String city) {
         cityInput.click();
         $(byText(city)).click();
         return this;
     }
 
-    public FullAllPage scrollToSubmit() {
+    public OneFormPage scrollToSubmit() {
         submitButton.scrollTo();
         return this;
     }
 
-    public FullAllPage submitForm() {
+    public OneFormPage submitForm() {
         submitButton.click();
         return this;
     }
 
     // Проверки через ResultsComponent
-    public FullAllPage checkStudentName(String firstName, String lastName) {
+    public OneFormPage checkStudentName(String firstName, String lastName) {
         resultsTable.checkStudentName(firstName, lastName);
         return this;
     }
 
-    public FullAllPage checkStudentEmail(String email) {
+    public OneFormPage checkStudentEmail(String email) {
         resultsTable.checkStudentEmail(email);
         return this;
     }
 
-    public FullAllPage checkGender(String gender) {
+    public OneFormPage checkGender(String gender) {
         resultsTable.checkGender(gender);
         return this;
     }
 
-    public FullAllPage checkMobile(String mobile) {
+    public OneFormPage checkMobile(String mobile) {
         resultsTable.checkMobile(mobile);
         return this;
     }
 
-    public FullAllPage checkDateOfBirth(String dateOfBirth) {
+    public OneFormPage checkDateOfBirth(String dateOfBirth) {
         resultsTable.checkDateOfBirth(dateOfBirth);
         return this;
     }
 
-    public FullAllPage checkSubjects(String subject) {
+    public OneFormPage checkSubjects(String subject) {
         resultsTable.checkSubjects(subject);
         return this;
     }
 
-    public FullAllPage checkHobbies(String hobby) {
+    public OneFormPage checkHobbies(String hobby) {
         resultsTable.checkHobbies(hobby);
         return this;
     }
 
-    public FullAllPage checkPicture(String pictureName) {
+    public OneFormPage checkPicture(String pictureName) {
         resultsTable.checkPicture(pictureName);
         return this;
     }
 
-    public FullAllPage checkAddress(String address) {
+    public OneFormPage checkAddress(String address) {
         resultsTable.checkAddress(address);
         return this;
     }
 
-    public FullAllPage checkStateAndCity(String state, String city) {
+    public OneFormPage checkStateAndCity(String state, String city) {
         resultsTable.checkStateAndCity(state, city);
         return this;
     }
 
-    public FullAllPage checkResultModalNotVisible() {
+    public OneFormPage checkResultModalNotVisible() {
         error.checkResultModalNotVisible();
         return this;
     }
 
-    public FullAllPage checkFormError(String expectedMessage) {
+    public OneFormPage checkFormError(String expectedMessage) {
         error.checkFormError(expectedMessage);
         return this;
     }

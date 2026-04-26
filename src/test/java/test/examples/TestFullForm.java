@@ -2,12 +2,12 @@ package test.examples;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pages.FullAllPage;
+import pages.OneFormPage;
 import test.data.TestBaseFull;
 import test.data.TestData;
 
 public class TestFullForm extends TestBaseFull {
-    FullAllPage fullAllPage = new FullAllPage();
+    OneFormPage oneFormPage = new OneFormPage();
     TestData testData;
 
     @BeforeEach
@@ -18,7 +18,7 @@ public class TestFullForm extends TestBaseFull {
     //Тест на успешное заполнение формы все поля заполнены
     @Test
     void successFullAll() {
-        fullAllPage.openPage()
+        oneFormPage.openPage()
                 .typeFirstName(testData.firstName)
                 .typeLastName(testData.lastName)
                 .closeBanner()
@@ -35,7 +35,7 @@ public class TestFullForm extends TestBaseFull {
                 .submitForm();
 
         // Проверки
-        fullAllPage.checkStudentName(testData.firstName, testData.lastName)
+        oneFormPage.checkStudentName(testData.firstName, testData.lastName)
                 .checkStudentEmail(testData.userEmailForFull)
                 .checkGender(testData.gender)
                 .checkMobile(testData.userNumber)
@@ -50,7 +50,7 @@ public class TestFullForm extends TestBaseFull {
     // Тест на успешное заполнение только обязательных полей
     @Test
     void successFull() {
-        fullAllPage.openPage()
+        oneFormPage.openPage()
                 .closeBanner()
                 .typeFirstName(testData.firstName)
                 .typeLastName(testData.lastName)
@@ -60,7 +60,7 @@ public class TestFullForm extends TestBaseFull {
                 .scrollToSubmit()
                 .submitForm();
 
-        fullAllPage.checkStudentName(testData.firstName, testData.lastName)
+        oneFormPage.checkStudentName(testData.firstName, testData.lastName)
                 .checkStudentEmail(testData.userEmailForFull)
                 .checkGender(testData.gender)
                 .checkMobile(testData.userNumber);
@@ -69,19 +69,19 @@ public class TestFullForm extends TestBaseFull {
     // Пустые обязательные поля
     @Test
     void requiredFieldsEmpty() {
-        fullAllPage.openPage()
+        oneFormPage.openPage()
                 .closeBanner()
                 .scrollToSubmit()
                 .submitForm();
 
-        fullAllPage.checkResultModalNotVisible()
+        oneFormPage.checkResultModalNotVisible()
                 .checkFormError(testData.message);
     }
 
     // Некорректный номер телефона (9 цифр)
     @Test
     void invalidMobileNumber() {
-        fullAllPage.openPage()
+        oneFormPage.openPage()
                 .closeBanner()
                 .typeFirstName(testData.firstName)
                 .typeLastName(testData.lastName)
@@ -90,14 +90,14 @@ public class TestFullForm extends TestBaseFull {
                 .scrollToSubmit()
                 .submitForm();
 
-        fullAllPage.checkResultModalNotVisible()
+        oneFormPage.checkResultModalNotVisible()
                 .checkFormError(testData.message);
     }
 
     // Не выбран пол (gender)
     @Test
     void genderNotSelected() {
-        fullAllPage.openPage()
+        oneFormPage.openPage()
                 .closeBanner()
                 .typeFirstName(testData.firstName)
                 .typeLastName(testData.lastName)
@@ -111,7 +111,7 @@ public class TestFullForm extends TestBaseFull {
                 .selectCity(testData.city)
                 .submitForm();
 
-        fullAllPage.checkResultModalNotVisible()
+        oneFormPage.checkResultModalNotVisible()
                 .checkFormError(testData.message);
     }
 }
