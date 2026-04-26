@@ -3,10 +3,10 @@ package test.examples;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pages.OneFormPage;
-import test.data.TestBaseFull;
+import test.TestBaseQaGuru;
 import test.data.TestData;
 
-public class TestFullForm extends TestBaseFull {
+public class TestQaGuruForm extends TestBaseQaGuru {
     OneFormPage oneFormPage = new OneFormPage();
     TestData testData;
 

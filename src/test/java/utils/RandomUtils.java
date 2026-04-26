@@ -44,20 +44,20 @@ public class RandomUtils {
     }
 
     public static String getMonthNumber(String month) {
-        switch (month) {
-            case "January": return "01";
-            case "February": return "02";
-            case "March": return "03";
-            case "April": return "04";
-            case "May": return "05";
-            case "June": return "06";
-            case "July": return "07";
-            case "August": return "08";
-            case "September": return "09";
-            case "October": return "10";
-            case "November": return "11";
-            case "December": return "12";
-            default: return "01";
-        }
+        return switch (month) {
+            case "january" -> "01";
+            case "february" -> "02";
+            case "march" -> "03";
+            case "april" -> "04";
+            case "may" -> "05";
+            case "june" -> "06";
+            case "july" -> "07";
+            case "august" -> "08";
+            case "september" -> "09";
+            case "october" -> "10";
+            case "november" -> "11";
+            case "december" -> "12";
+            default -> "01";
+        };
     }
 }

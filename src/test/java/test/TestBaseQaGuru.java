@@ -1,9 +1,9 @@
-package test.data;
+package test;
 
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 
-public class TestBaseFull {
+public class TestBaseQaGuru {
 
     @BeforeAll
     static void setupSelenideQaGury() {

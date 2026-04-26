@@ -3,13 +3,13 @@ package test.examples;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pages.TextBoxPage;
-import test.data.TestBase;
+import test.TestBaseDemoQa;
 import test.data.TestData;
 
 import static utils.RandomUtils.getRandomEmail;
 import static utils.RandomUtils.getRandomString;
 
-public class TestdempQa extends TestBase {
+public class TestdempQa extends TestBaseDemoQa {
     TextBoxPage textBoxPage = new TextBoxPage();
     TestData testData;
 
