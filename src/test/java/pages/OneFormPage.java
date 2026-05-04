@@ -29,6 +29,7 @@ public class OneFormPage {
     private SelenideElement submitButton = $("#submit");
     private SelenideElement closeButton = $("[aria-label='Close']");
     private SelenideElement hobbiesWrapper = $("#hobbiesWrapper");
+
     private SelenideElement getGenderRadio(String gender) {
         int genderNumber = gender.equalsIgnoreCase("male") ? 1 :
                 gender.equalsIgnoreCase("female") ? 2 : 3;

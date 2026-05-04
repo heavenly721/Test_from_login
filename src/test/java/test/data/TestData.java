@@ -26,15 +26,16 @@ public class TestData {
     public String dayOfBirth = String.format("%02d", faker.number().numberBetween(1, 28));
     public String subject = faker.options().option("Physics", "Chemistry", "Biology", "Maths", "Computer Science");
     public String hobbiesWrapper = faker.options().option("Sports", "Reading", "Music");
-    public String Picture = "test1.txt";
+    public String picture = "test1.txt";
     public String currentAddressForFull = fakerRu.address().fullAddress();
-    public String State = faker.options().option("Uttar Pradesh", "Rajasthan", "Haryana", "NCR");
-    public String city = switch (State) {
+    public String state = faker.options().option("Uttar Pradesh", "Rajasthan", "Haryana", "NCR");
+    public String city = switch (state) {
         case "Uttar Pradesh" -> faker.options().option("Lucknow", "Agra", "Merrut");
         case "Rajasthan" -> faker.options().option("Jaipur", "Jaiselmer");
         case "Haryana" -> faker.options().option("Karnal", "Panipat");
         case "NCR" -> faker.options().option("Delhi", "Noida", "Gurgaon");
-        default -> "Lucknow";};
+        default -> "Lucknow";
+    };
     public String gender = RandomUtils.getRandomGender();
     public String dateOfBirth = String.format("%s-%s-%s", yearOfBirth,
             RandomUtils.getMonthNumber(monthOfBirth), dayOfBirth);

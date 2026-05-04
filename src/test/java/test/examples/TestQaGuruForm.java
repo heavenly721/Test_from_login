@@ -28,9 +28,9 @@ public class TestQaGuruForm extends TestBaseQaGuru {
                 .setDateOfBirth(testData.dayOfBirth, testData.monthOfBirth, testData.yearOfBirth)
                 .typeSubject(testData.subject)
                 .selectHobby(testData.hobbiesWrapper)
-                .uploadPicture(testData.Picture)
+                .uploadPicture(testData.picture)
                 .typeCurrentAddress(testData.currentAddressForFull)
-                .selectState(testData.State)
+                .selectState(testData.state)
                 .selectCity(testData.city)
                 .submitForm();
 
@@ -42,9 +42,9 @@ public class TestQaGuruForm extends TestBaseQaGuru {
                 .checkDateOfBirth(testData.dateOfBirth)
                 .checkSubjects(testData.subject)
                 .checkHobbies(testData.hobbiesWrapper)
-                .checkPicture(testData.Picture)
+                .checkPicture(testData.picture)
                 .checkAddress(testData.currentAddressForFull)
-                .checkStateAndCity(testData.State, testData.city);
+                .checkStateAndCity(testData.state, testData.city);
     }
 
     // Тест на успешное заполнение только обязательных полей
@@ -107,7 +107,7 @@ public class TestQaGuruForm extends TestBaseQaGuru {
                 .typeSubject(testData.subject)
                 .selectHobby(testData.hobbiesWrapper)
                 .typeCurrentAddress(testData.currentAddressForFull)
-                .selectState(testData.State)
+                .selectState(testData.state)
                 .selectCity(testData.city)
                 .submitForm();
 
