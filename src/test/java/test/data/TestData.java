@@ -28,7 +28,7 @@ public class TestData {
     public String hobbiesWrapper = faker.options().option("Sports", "Reading", "Music");
     public String Picture = "test1.txt";
     public String currentAddressForFull = fakerRu.address().fullAddress();
-    public String State = faker.options().option("Uttar Pradesh", "Rajasthan", "Haryana", "NCR", "Delhi");
+    public String State = faker.options().option("Uttar Pradesh", "Rajasthan", "Haryana", "NCR");
     public String city = switch (State) {
         case "Uttar Pradesh" -> faker.options().option("Lucknow", "Agra", "Merrut");
         case "Rajasthan" -> faker.options().option("Jaipur", "Jaiselmer");

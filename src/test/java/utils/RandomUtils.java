@@ -44,7 +44,7 @@ public class RandomUtils {
     }
 
     public static String getMonthNumber(String month) {
-        return switch (month) {
+        return switch (month.toLowerCase()) {
             case "january" -> "01";
             case "february" -> "02";
             case "march" -> "03";
